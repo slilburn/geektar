@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block head_script %}
+
+    <script type="text/javascript">
+$(document).ready(function() 
+    { 
+        $("#songs").tablesorter({
+            sortList: [[0,0], [0,1]]
+        }); 
+    }); 
+    </script>
+{% endblock %}
+{% block content %}
+<p><a href="/add/">Add Song</a></p>
+{% if user_songs %}
+{% include "songs.html" %}
+{% else %}
+<p>You haven't added any songs yet!</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block head_script %}
+
+    <script type="text/javascript">
+$(document).ready(function() 
+    { 
+        $("#songs").tablesorter({
+            sortList: [[0,0], [0,1]]
+        }); 
+    }); 
+    </script>
+{% endblock %}
+{% block content %}
+{% if user_songs %}
+<p>Here are the songs {{user_songs.0.user.username}} plays.</p>
+{% include "songs.html" %}
+{% else %}
+<p>
+This user ({{request.user.username}}) hasn't added any songs yet.
+</p>
+{% endif %}
+{% endblock %}

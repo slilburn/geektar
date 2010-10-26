@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>
+</div>
+<div id="song_info">
+<span><strong>Artist:</strong> {{ user_song.song.artist }}</span>
+<span style="margin-left: 20px;"><strong>Title:</strong>  {{ user_song.song.title }}</span>
+</div>
+<div id="tab">
+<pre>
+{{ user_song.tab }}
+</pre>
+</div>
+<p>
+</p>
+{% endblock %}
+

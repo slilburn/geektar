@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div id="login_form">
+{% if login_form.errors %}
+    <p style="color:red;">
+        Please correct the error{{ login_form.errors|pluralize }} below.
+    </p>
+{% endif %}
+
+  <form action="" method="post">
+    {% csrf_token %}
+      {{ login_form.as_p }}
+      <input name="login_submit" type="submit" value="Log in">
+  </form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block head_script %}
+<script type="text/javascript">
+function scrape_ug(inurl) {
+    $.post("/scrape_ug/",{ url: inurl },
+        function(data) {
+            var splitted = data.split("|||");
+            $("input[name=title]").val(splitted[0]);
+            $("input[name=artist]").val(splitted[1]);
+            $("textarea[name=tab]").val(splitted[2]);
+        });
+};
+
+$(document).ready(function() {
+	$("#scrape_ug_form").submit(function() {
+		scrape_ug($('input[name=ug_url]').val());
+		return false; // stops default form action
+	});
+});
+</script>
+{% endblock %}
+{% block content %}
+
+
+{% if add_song_form.errors %}
+    <p style="color: red;">
+        Please correct the error{{ add_song_form.errors|pluralize }} below.
+    </p>
+{% endif %}
+
+<br /> <br />
+<div>
+<form id="scrape_ug_form">
+Ultimate Guitar URL: <input type="text" name="ug_url" />
+<input type="submit" name="scrape" value="Fetch" />
+</form>
+</div>
+<br />
+<form class="cmxform" action="" method="post">
+    {% csrf_token %}
+
+<div>
+    <label for="id_artist">Artist:</label>
+    {{add_song_form.artist}}
+
+    <label for="id_title">Title:</label>
+    {{add_song_form.title}}
+
+</div>
+<div>
+    <label for="id_tags">Tags:</label>
+    {{add_song_form.tags}}
+
+    <label for="id_private">Private:</label>
+    {{add_song_form.private}}
+
+    <label for"id_ability">Ability:</label>
+    {{add_song_form.ability}}
+</div>
+<div id="tabinput">
+
+    <label for="id_tab">Tab:</label><br />
+    {{add_song_form.tab}}
+</div>
+<div style="padding-top:20px;">
+    {% if edit %}
+    <input type="submit" value="Update" style="width:100px"/>
+    {% else %}
+    <input type='submit' value='Add' style='width: 70px' />
+    {% endif %}
+</div>
+</form>
+{% endblock %}

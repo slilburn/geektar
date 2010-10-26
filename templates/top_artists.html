@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<div>
+<table class="toplist">
+{% for artist in top_artists %}
+<tr><td>{{artist.0}}</td><td>{{artist.1}}</td></tr>
+{% endfor %}
+</table>
+</ul>
+</div>
+{% endblock %}

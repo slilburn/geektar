@@ -1,0 +1,82 @@
+body {
+    font-family: "Verdana", "sans-serif";
+}
+
+a {
+   color: #285976;
+   text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+#title {
+    float: left;
+}
+
+#uppermenu {
+    float: right;
+}
+
+#content {
+    top: 10px;
+}
+
+#heading {
+    width: 100%;
+}
+
+#break {
+    clear: both;
+    height: 20px;
+    width: 100%;
+}
+
+#wrapper {
+    position: relative;
+    height: 100%;
+    width:1024px;
+    left:10%;
+}
+
+#tab {
+    font-family: Courier New;
+    padding-top: 20px;
+}
+
+#song_info {
+    padding-top:20px;
+}
+
+#login_form {
+    margin-left: 15%;
+    width:20%;
+    float: left;
+}
+
+#intro {
+    margin-right: 20%;
+    float: right;
+    width: 40%;
+}
+
+#login_submit {
+    width:75px;
+}
+
+#heading {
+    margin-left: 15%;
+}
+
+#id_username {
+    width: 140px;
+}
+
+#id_email {
+    width: 140px;
+}
+
+#id_password {
+    width: 140px;
+}

@@ -1,0 +1,28 @@
+{% include 'head.html' %}
+<body>
+<h1 id="heading"><img src="/static/images/geektar.jpg" /></h1>
+<div>
+<div id="login_form">
+{% if newly_registered %}
+<p style="font-weight: bold">Thanks for signing up! Log in to get started.</p>
+
+{% if login_form.errors %}
+    <p style="color:red;">
+        Please correct the error{{ login_form.errors|pluralize }} below.
+    </p>
+{% endif %}
+{% endif %}
+
+  <form action="/login/" method="post">
+    {% csrf_token %}
+      {{ login_form.as_ul }}
+      <br />
+      <input id="login_submit" name="login_submit" type="submit" value="Log in">
+  </form>
+
+</div>
+
+{% include "intro.html" %}
+</div>
+</body>
+</html>

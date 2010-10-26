@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+    <title>Geektar</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/base.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/forms.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/tables.css" />
+<script type="text/javascript" src="/static/js/jquery-1.4.3.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.tablesorter.min.js"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-19300089-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+{% block head_script %}
+{% endblock %}
+</head>
+<body>
+<div id="wrapper">
+<div id="header">
+    <div id="title"><img src="/static/images/geektar.jpg" /></div>
+    <div id="uppermenu">
+        {% if request.user.is_authenticated %}
+        <span id="welcome">Hi, {{request.user.username}}!</span>
+        <span id="logout"><a href="/logout">Logout</a></span>
+        {% else %}
+        <span id="login"><a href="/login">Login</a></span>
+        {% endif %}
+    </div>
+</div>
+
+
+<div id="break"></div>
+
+
+<div id = "content">
+<span id="navmenu">
+<a href="/">Home</a> |
+{% if request.user.authenticated %}
+<a href="/user/{{request.user.username}}/">Profile</a> |
+{% endif %}
+<a href="/top/artists/">Top Artists</a>
+</span>
+    {% block content %}
+    
+    {% endblock %}
+</div>
+    {% block footer %}
+
+    {% endblock %}
+</div>
+<div style="margin-top:300px;" id="footer" align="center">
+Made by <a href="http://twitter.com/atroche">Alistair Roche</a>
+</div>
+</body>
+</html>
+

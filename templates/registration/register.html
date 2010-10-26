@@ -1,0 +1,23 @@
+{% include 'head.html' %}
+<body>
+<h1 style="margin-left:15%;"><img src="/static/images/geektar.jpg" /></h1>
+<div id="login_form">
+{% if register_form.errors %}
+    <p style="color: red;">
+        Please correct the error{{ register_form.errors|pluralize }} below.
+    </p>
+{% endif %}
+
+  <form action="" method="post">
+    {% csrf_token %}
+      {{ register_form.as_ul }}
+	<br />
+      <input name="register_submit" type="submit" value="Register">
+  </form>
+</div>
+
+<div id="intro" style="margin-top:5%;">
+Passwords are encrypted and stored securely, and we won't give your email to spammers. Promise.
+</div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<table id="songs" class="tablesorter">
+<thead>
+    <tr>
+        <th>Artist</th>
+        <th>Title</th>
+        <th>Ability</th>
+        <th>Tags</th>
+    </tr>
+</thead>
+<tbody>
+<script>
+
+function confirm_delete(song_id) {
+    $("#" + song_id).find(".deleteLink").hide();
+    $("#" + song_id).find(".yes_or_no").show();
+};
+
+function do_not_delete(song_id) {
+    $("#" + song_id).find(".deleteLink").show();
+    $("#" + song_id).find(".yes_or_no").hide();
+};
+
+function delete_song(in_song_id) {
+    $.post("/delete/", {song_id: in_song_id}, function(data) {
+        $("#" + in_song_id).hide();
+    });
+};
+
+</script>
+
+{% for user_song in user_songs %}
+    {% if not user_song.private or own_songs %}
+    <tr id="{{ user_song.id }}">
+        <td>{{ user_song.song.artist }}</td>
+        <td>{{ user_song.song.title }}</td>
+        <td>{{ user_song.get_ability_display }}</td>
+        <td>
+        {% if user_song.tags.all %}
+            {% for tag in user_song.tags.all %}
+            {{tag.name}},
+            {% endfor %}
+        {% endif %}
+        </td>
+        <td><a href="/song/{{ user_song.id }}">View</a></td>
+        {% if own_songs %}
+        <td><a href="/edit/{{ user_song.id }}">Edit</a></td>
+        <td class="deleteCell">
+        <a href="javascript:confirm_delete({{ user_song.id }})"
+            class="deleteLink">Delete</a>
+        <span class="yes_or_no" style="display:none;">
+        <a href="javascript:delete_song({{ user_song.id }})">Yes</a> /
+        <a href="javascript:do_not_delete({{ user_song.id }})">No</a>
+        </span>
+        </td>
+        {% endif %}
+    </tr>
+    {% endif %}
+{% endfor %}
+</tbody>
+</table>
