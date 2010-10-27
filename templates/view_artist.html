@@ -1,8 +1,41 @@
 {% extends "base.html" %}
 {% block content %}
+<h2>{{artist}}</h2>
+<div>
+<div style="float: left; padding: 10px; width:20%;">
 Top Tags
-
+<table class="tablesorter">
+{% for tag_count in top_tags %}
+<tr>
+    <td>{{tag_count.0}}</td>
+    <td>{{tag_count.1}}</td>
+</tr>
+{% endfor %}
+</table>
+</div>
+<div style="float: left; padding: 10px; width:20%;">
 Top Songs
+<table class="tablesorter">
+{% for song_count in top_songs %}
+<tr>
+    <td>{{song_count.0.title}}</td>
+    <td>{{song_count.1}}</td>
+</tr>
+{% endfor %}
+</table>
+</div>
 
-Top Users
+<div style="float: left; padding: 10px; width:20%;">
+Top Fans
+<table class="tablesorter">
+{% for user_count in top_users %}
+<tr>
+    <td><a href="/user/{{user_count.0}}/">{{user_count.0}}</a></td>
+    <td>{{user_count.1}}</td>
+</tr>
+{% endfor %}
+</table>
+</div>
+
+</div>
 {% endblock %}

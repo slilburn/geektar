@@ -21,7 +21,7 @@ urlpatterns = patterns('',
     (r'^scrape_ug/$', scrape_ug),
     (r'^delete/$', delete_song),
     (r'^top/artists/$', top_artists),
-#    (r'^artist/([\w ]+)/$', view_artist),
+    (r'^artist/([\w ]+)/$', view_artist),
 )
 
 if settings.DEBUG:

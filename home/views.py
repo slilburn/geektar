@@ -243,6 +243,13 @@ def delete_song(request):
         print "not correct user"
         return HttpResponseBadRequest()
 
+def sort_dict(d):
+    from operator import itemgetter
+    sorted_d = sorted(d.iteritems(), key=itemgetter(1))
+    sorted_d.reverse()
+    sorted_d = sorted_tags[:40] if len(sorted_d) > 40 else sorted_d
+    return sorted_d
+
 def top_artists(request):
     all_usersongs = UserSong.objects.filter()
     song_counts = {}
@@ -252,22 +259,36 @@ def top_artists(request):
         artist = usersong.song.artist
         song_counts[song] = song_counts.setdefault(song, 0) + 1
         artist_counts[artist] = artist_counts.setdefault(artist, 0) + 1
-    from operator import itemgetter
-    sorted_artists = sorted(artist_counts.iteritems(), key=itemgetter(1))
-    sorted_artists.reverse()
-    if len(sorted_artists) > 40:
-        sorted_artists = sorted_artists[:40]
+    sorted_artists = sort_dict(artist_counts)
     return render_to_response_context("top_artists.html",
                               {"top_artists": sorted_artists, },
                               request)
 
 
-#def view_artist(request, artist_name):
-#    song_counts = {}
-#    artist_songs = Song.objects.filter(artist=artist_name)
-#    for song in artist_songs:
-#        song_counts[song] = len(UserSong.objects.filter(song=song))
-#    return HttpResponse(str(song_counts))
+def view_artist(request, artist_name):
+    song_counts = {}
+    tag_counts = {}
+    user_counts = {}
+    users = []
+    artist_songs = Song.objects.filter(artist=artist_name)
+    for song in artist_songs:
+        user_songs = UserSong.objects.filter(song=song).all()
+        song_counts[song] = len(user_songs)
+        for user_song in user_songs:
+            user_counts[user_song.user] = user_counts.setdefault(
+                                            user_song.user, 0) + 1
+            for tag in user_song.tags.all():
+                tag_counts[tag] = tag_counts.setdefault(
+                                                tag, 0) + 1
+    sorted_songs = sort_dict(song_counts)
+    sorted_tags = sort_dict(tag_counts)
+    sorted_users = sort_dict(user_counts)
+    return render_to_response_context("view_artist.html",
+            { "top_tags": sorted_tags, "top_songs": sorted_songs,
+              "top_users": sorted_users, "artist": artist_name},
+            request)
+
+
     
     
     
