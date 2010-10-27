@@ -1,7 +1,7 @@
-{% include 'head.html' %}
-<body>
-<h1 id="heading"><img src="/static/images/geektar.jpg" /></h1>
+{% extends "base.html" %}
+{% block content %}
 <div>
+<br />
 <div id="login_form">
 {% if newly_registered %}
 <p style="font-weight: bold">Thanks for signing up! Log in to get started.</p>
@@ -24,5 +24,4 @@
 
 {% include "intro.html" %}
 </div>
-</body>
-</html>
+{% endblock %}

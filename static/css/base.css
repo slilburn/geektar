@@ -50,14 +50,13 @@ a:hover {
 }
 
 #login_form {
-    margin-left: 15%;
     width:20%;
     float: left;
 }
 
 #intro {
-    margin-right: 20%;
-    float: right;
+    float: left;
+    margin-left:3%;
     width: 40%;
 }
 

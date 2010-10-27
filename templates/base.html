@@ -47,7 +47,8 @@
 {% if request.user.is_authenticated %}
 <a href="/user/{{request.user.username}}/">Profile</a> |
 {% endif %}
-<a href="/explore/">Explore</a>
+<a href="/explore/">Explore</a> |
+<a href="/about/">About</a>
 </span>
     {% block content %}
     

@@ -1,6 +1,7 @@
-{% include 'head.html' %}
-<body>
-<h1 style="margin-left:15%;"><img src="/static/images/geektar.jpg" /></h1>
+{% extends "base.html" %}
+{% block content %}
+<br />
+<br />
 <div id="login_form">
 {% if register_form.errors %}
     <p style="color: red;">
@@ -19,5 +20,4 @@
 <div id="intro" style="margin-top:5%;">
 Passwords are encrypted and stored securely, and we won't give your email to spammers. Promise.
 </div>
-</body>
-</html>
+{% endblock %}

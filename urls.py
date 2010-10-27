@@ -24,6 +24,7 @@ urlpatterns = patterns('',
     (r'^artist/([\w ]+)/$', view_artist),
     (r'^tag/([\w ]+)/$', view_tag),
     (r'^explore/$', explore),
+    (r'^about/$', about),
 )
 
 if settings.DEBUG:

@@ -6,6 +6,7 @@ from django.shortcuts import render_to_response
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
+from django.http import Http404
 from geektar.home.models import *
 from urllib2 import urlopen
 import re
@@ -290,7 +291,10 @@ def view_tag(request, tag_name):
     song_counts = {}
     user_counts = {}
     artist_counts = {}
-    tag = Tag.objects.filter(name=tag_name).all()[0]
+    tags = Tag.objects.filter(name=tag_name).all()
+    if not tags:
+        raise Http404
+    tag = tags[0]
     user_songs = tag.usersong_set.all()
     for user_song in user_songs:
         song_counts[user_song.song] = song_counts.setdefault(
@@ -328,6 +332,8 @@ def explore(request):
           "top_tags": top_tags,
         }, request)
 
+def about(request):
+    return render_to_response_context("about.html", {}, request)
 
     
     
