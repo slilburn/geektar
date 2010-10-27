@@ -7,13 +7,13 @@ Top Tags
 <table class="tablesorter">
 {% for tag_count in top_tags %}
 <tr>
-    <td>{{tag_count.0}}</td>
+    <td><a href="/tag/{{tag_count.0}}">{{tag_count.0}}</a></td>
     <td>{{tag_count.1}}</td>
 </tr>
 {% endfor %}
 </table>
 </div>
-<div style="float: left; padding: 10px; width:20%;">
+<div style="float: left; padding: 10px; width:40%;">
 Top Songs
 <table class="tablesorter">
 {% for song_count in top_songs %}

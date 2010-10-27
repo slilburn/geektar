@@ -31,13 +31,18 @@ function delete_song(in_song_id) {
 {% for user_song in user_songs %}
     {% if not user_song.private or own_songs %}
     <tr id="{{ user_song.id }}">
-        <td>{{ user_song.song.artist }}</td>
+        <td>
+        <a href="/artist/{{ user_song.song.artist }}">
+        {{user_song.song.artist}}
+        </a>
+        </td>
         <td>{{ user_song.song.title }}</td>
         <td>{{ user_song.get_ability_display }}</td>
         <td>
         {% if user_song.tags.all %}
             {% for tag in user_song.tags.all %}
-            {{tag.name}},
+            <a href="/tag/{{tag.name}}/">
+            {{tag.name}}</a>,
             {% endfor %}
         {% endif %}
         </td>

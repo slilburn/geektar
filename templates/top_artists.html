@@ -3,7 +3,10 @@
 <div>
 <table class="toplist">
 {% for artist in top_artists %}
-<tr><td>{{artist.0}}</td><td>{{artist.1}}</td></tr>
+<tr>
+<td><a href="/artist/{{artist.0}}/">{{artist.0}}</a></td>
+<td>{{artist.1}}</td>
+</tr>
 {% endfor %}
 </table>
 </ul>

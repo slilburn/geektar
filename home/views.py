@@ -269,7 +269,6 @@ def view_artist(request, artist_name):
     song_counts = {}
     tag_counts = {}
     user_counts = {}
-    users = []
     artist_songs = Song.objects.filter(artist=artist_name)
     for song in artist_songs:
         user_songs = UserSong.objects.filter(song=song).all()
@@ -278,8 +277,7 @@ def view_artist(request, artist_name):
             user_counts[user_song.user] = user_counts.setdefault(
                                             user_song.user, 0) + 1
             for tag in user_song.tags.all():
-                tag_counts[tag] = tag_counts.setdefault(
-                                                tag, 0) + 1
+                tag_counts[tag] = tag_counts.setdefault(tag, 0) + 1
     sorted_songs = sort_dict(song_counts)
     sorted_tags = sort_dict(tag_counts)
     sorted_users = sort_dict(user_counts)
@@ -287,6 +285,48 @@ def view_artist(request, artist_name):
             { "top_tags": sorted_tags, "top_songs": sorted_songs,
               "top_users": sorted_users, "artist": artist_name},
             request)
+
+def view_tag(request, tag_name):
+    song_counts = {}
+    user_counts = {}
+    artist_counts = {}
+    tag = Tag.objects.filter(name=tag_name).all()[0]
+    user_songs = tag.usersong_set.all()
+    for user_song in user_songs:
+        song_counts[user_song.song] = song_counts.setdefault(
+            user_song.song, 0) + 1
+        user_counts[user_song.user] = user_counts.setdefault(
+            user_song.user, 0) + 1
+        artist_counts[user_song.song.artist] = artist_counts.setdefault(
+            user_song.song.artist, 0) + 1
+    return render_to_response_context("view_tag.html",
+            { "top_artists": sort_dict(artist_counts),
+              "top_songs": sort_dict(song_counts),
+              "top_users": sort_dict(user_counts),
+              "tag_name": tag_name},
+            request)
+
+def explore(request):
+    all_usersongs = UserSong.objects.filter()
+    all_tags = Tag.objects.filter()
+    song_counts = {}
+    artist_counts = {}
+    tag_counts = {}
+    for usersong in all_usersongs:
+        song = usersong.song
+        artist = usersong.song.artist
+        song_counts[song] = song_counts.setdefault(song, 0) + 1
+        artist_counts[artist] = artist_counts.setdefault(artist, 0) + 1
+    for tag in all_tags:
+        tag_counts[tag] = len(tag.usersong_set.all())
+    top_artists = sort_dict(artist_counts)
+    top_songs = sort_dict(song_counts)
+    top_tags = sort_dict(tag_counts)
+    return render_to_response_context("explore.html",
+        { "top_artists": top_artists,
+          "top_songs": top_songs,
+          "top_tags": top_tags,
+        }, request)
 
 
     

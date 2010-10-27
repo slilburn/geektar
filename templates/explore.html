@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Explore</h2>
+<div>
+<div style="float: left; padding: 10px; width:20%;">
+Top Artists
+<table class="tablesorter">
+{% for artist_count in top_artists %}
+<tr>
+    <td><a href="/artist/{{artist_count.0}}">{{artist_count.0}}</a></td>
+    <td>{{artist_count.1}}</td>
+</tr>
+{% endfor %}
+</table>
+</div>
+<div style="float: left; padding: 10px; width:40%;">
+Top Songs
+<table class="tablesorter">
+{% for song_count in top_songs %}
+<tr>
+    <td>
+    <a href="/artist/{{song_count.0.artist}}/">
+    {{song_count.0.artist}}
+    </a> - {{song_count.0.title}}
+    </td>
+    <td>{{song_count.1}}</td>
+</tr>
+{% endfor %}
+</table>
+</div>
+
+<div style="float: left; padding: 10px; width:20%;">
+Top Tags
+<table class="tablesorter">
+{% for tag_count in top_tags %}
+<tr>
+    <td><a href="/tag/{{tag_count.0}}">{{tag_count.0}}</a></td>
+    <td>{{tag_count.1}}</td>
+</tr>
+{% endfor %}
+</table>
+</div>
+
+</div>
+{% endblock %}

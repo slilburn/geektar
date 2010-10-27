@@ -12,11 +12,11 @@ $(document).ready(function()
 {% endblock %}
 {% block content %}
 {% if user_songs %}
-<p>Here are the songs {{user_songs.0.user.username}} plays.</p>
+<h2>User: {{user_songs.0.user.username}}</h2>
 {% include "songs.html" %}
 {% else %}
 <p>
-This user ({{request.user.username}}) hasn't added any songs yet.
+This user hasn't added any songs yet.
 </p>
 {% endif %}
 {% endblock %}
